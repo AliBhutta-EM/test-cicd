@@ -15,8 +15,8 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 18.224.65.207
-          username: ec2-user
+          host: ${{ secrets.DEV_SERVER_IP }}
+          username: ${{ secrets.DEV_SERVER_USER }}
           key: ${{ secrets.DEV_SSH_KEY }}
           port: 22
           script: |
