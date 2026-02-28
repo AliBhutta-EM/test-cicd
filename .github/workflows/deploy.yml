@@ -16,11 +16,15 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: 18.224.65.207
-          username: root
+          username: ec2-user
           key: ${{ secrets.DEV_SSH_KEY }}
-          port: 80
+          port: 22
           script: |
-            cd /test-cicd
+            cd /home/ec2-user/test-cicd
             git pull origin main
-            docker build -t test
-            docker run -d -p 80:3000 test
+
+            sudo docker stop test-container || true
+            sudo docker rm test-container || true
+
+            sudo docker build -t test .
+            sudo docker run -d -p 80:3000 --name test-container --restart=always test
