@@ -15,9 +15,10 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: http://18.224.65.207
+          host: 18.224.65.207
           username: root
           key: ${{ secrets.DEV_SSH_KEY }}
+          port: 80
           script: |
             cd /test-cicd
             git pull origin main
