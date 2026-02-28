@@ -22,9 +22,4 @@ jobs:
           script: |
             cd /home/ec2-user/test-cicd
             git pull origin main
-
-            sudo docker stop test-container || true
-            sudo docker rm test-container || true
-
-            sudo docker build -t test .
-            sudo docker run -d -p 80:3000 --name test-container --restart=always test
+            sudo docker compose up -d --build
